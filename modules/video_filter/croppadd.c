@@ -140,6 +140,29 @@ static const struct transform transforms[8] = {
     [ORIENT_RIGHT_BOTTOM] = { IDX_RIGHT,  IDX_BOTTOM },
 };
 
+#define IDX_TOP 0
+#define IDX_LEFT 1
+#define IDX_BOTTOM 2
+#define IDX_RIGHT 3
+
+struct transform {
+    unsigned idx_top;
+    unsigned idx_left;
+    /* idx_bottom is idx_top XOR 2
+       idx_right is idx_left XOR 2 */
+};
+
+static const struct transform transforms[8] = {
+    [ORIENT_TOP_LEFT]     = { IDX_TOP,    IDX_LEFT },
+    [ORIENT_TOP_RIGHT]    = { IDX_TOP,    IDX_RIGHT },
+    [ORIENT_BOTTOM_LEFT]  = { IDX_BOTTOM, IDX_LEFT },
+    [ORIENT_BOTTOM_RIGHT] = { IDX_BOTTOM, IDX_RIGHT },
+    [ORIENT_LEFT_TOP]     = { IDX_LEFT,   IDX_TOP },
+    [ORIENT_LEFT_BOTTOM]  = { IDX_LEFT,   IDX_BOTTOM },
+    [ORIENT_RIGHT_TOP]    = { IDX_RIGHT,  IDX_TOP },
+    [ORIENT_RIGHT_BOTTOM] = { IDX_RIGHT,  IDX_BOTTOM },
+};
+
 /*****************************************************************************
  * OpenFilter: probe the filter and return score
  *****************************************************************************/

@@ -120,6 +120,9 @@ public:
     /// hide mouse (vout window provider)
     void hideMouseWnd( struct vlc_window *pWnd, bool hide );
 
+    /// hide mouse (vout window provider)
+    void hideMouseWnd( vout_window_t* pWnd, bool hide );
+
     // Register Video Controls (when building theme)
     void registerCtrlVideo( CtrlVideo* p_CtrlVideo );
 

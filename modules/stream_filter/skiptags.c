@@ -209,6 +209,14 @@ static int Control(stream_t *stream, int query, va_list args)
             return ret;
         }
     }
+    else if(query == STREAM_GET_SIZE)
+    {
+        uint64_t size;
+        int i_ret = vlc_stream_GetSize(stream->p_source, &size);
+        if(i_ret == VLC_SUCCESS)
+            *va_arg(args, uint64_t *) = size - sys->header_skip;
+        return i_ret;
+    }
 
     return vlc_stream_vaControl(stream->s, query, args);
 }

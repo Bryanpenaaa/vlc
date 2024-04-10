@@ -132,6 +132,56 @@ static void FillExtendedFormat( const video_format_t *p_fmt,
     out->VideoLighting = DXVA2_VideoLighting_dim;
 }
 
+static void FillExtendedFormat( const video_format_t *p_fmt,
+                                DXVA2_ExtendedFormat *out )
+{
+    out->NominalRange = p_fmt->b_color_range_full ? DXVA2_NominalRange_0_255 : DXVA2_NominalRange_16_235;
+    switch (p_fmt->space)
+    {
+    case COLOR_SPACE_BT601:
+        out->VideoTransferMatrix = DXVA2_VideoTransferMatrix_BT601;
+        break;
+    case COLOR_SPACE_BT709:
+        out->VideoTransferMatrix = DXVA2_VideoTransferMatrix_BT709;
+        break;
+    default:
+        out->VideoTransferMatrix = DXVA2_VideoTransferMatrix_Unknown;
+        break;
+    }
+    out->VideoLighting = DXVA2_VideoLighting_Unknown;
+    switch (p_fmt->primaries)
+    {
+    case COLOR_PRIMARIES_BT709:
+        out->VideoPrimaries = DXVA2_VideoPrimaries_BT709;
+        break;
+    case COLOR_PRIMARIES_BT470_BG:
+        out->VideoPrimaries = DXVA2_VideoPrimaries_BT470_2_SysBG;
+        break;
+    case COLOR_PRIMARIES_SMTPE_170:
+        out->VideoPrimaries = DXVA2_VideoPrimaries_SMPTE170M;
+        break;
+    default:
+        out->VideoPrimaries = DXVA2_VideoPrimaries_Unknown;
+        break;
+    }
+    switch (p_fmt->transfer)
+    {
+    case TRANSFER_FUNC_BT709:
+        out->VideoTransferFunction = DXVA2_VideoTransFunc_709;
+        break;
+    case TRANSFER_FUNC_SMPTE_240:
+        out->VideoTransferFunction = DXVA2_VideoTransFunc_240M;
+        break;
+    case TRANSFER_FUNC_SRGB:
+        out->VideoTransferFunction = DXVA2_VideoTransFunc_sRGB;
+        break;
+    default:
+        out->VideoTransferFunction = DXVA2_VideoTransFunc_Unknown;
+        break;
+    }
+    out->VideoLighting = DXVA2_VideoLighting_dim;
+}
+
 static void FillSample( DXVA2_VideoSample *p_sample,
                         const struct deinterlace_ctx *p_context,
                         picture_t *p_pic,

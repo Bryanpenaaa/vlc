@@ -22,7 +22,13 @@
 
 #include <vlc_common.h>
 #include <vlc_stream.h>
+<<<<<<< master
 #include "../../mp4/libmp4.h"
+=======
+extern "C" {
+#include "../../mp4/libmp4.h"
+}
+>>>>>>> origin/3.0.x
 
 namespace adaptive
 {
